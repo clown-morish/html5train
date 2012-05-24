@@ -12,7 +12,7 @@
     <script type="text/javascript">
     onload = function() {
     	draw1();
-    	//draw2();
+    	draw2();
     	//draw3();
     	draw4();
     }
@@ -46,16 +46,20 @@
       var canvas2 = document.getElementById('c2');
       if ( ! canvas2 || ! canvas2.getContext ) { return false; }
       var ctx2 = canvas2.getContext('2d');
-      var x_2 = 70;
+      var x_2 = 840;
       var y_2 = 70;
       var id = setInterval(function(){
     	  ctx2.clearRect(0, 0, canvas2.width, canvas2.height);
     	  ctx2.beginPath();
           ctx2.fillStyle = 'rgb(256, 256, 0)';// 黄
-          ctx2.arc(70, 70, 60,-30 * Math.PI / 180, 30 * Math.PI / 180, true);
-          ctx2.lineTo(70, 70);
+          ctx2.arc(x_2, y_2, 60,-150 * Math.PI / 180, 150 * Math.PI / 180, false);
+          ctx2.lineTo(x_2, y_2);
           ctx2.fill();
-      }, 100);
+          x_2--;
+          if(x_2 < 70) {
+        	  x_2 = 840;
+          }
+      }, 10);
 
     }
     function draw3() {
@@ -111,8 +115,8 @@
 </head>
 <body>
 <canvas id="c1" width="900" height="140"></canvas>
-<canvas id="c2" width="140" height="140"></canvas>
-<canvas id="c3" width="140" height="140"></canvas>
+<canvas id="c2" width="900" height="140"></canvas>
+<canvas id="c3" width="900" height="140"></canvas>
 <canvas id="c4" width="900" height="140"></canvas>
 </body>
 </html>
