@@ -12,29 +12,51 @@
     <script type="text/javascript">
     onload = function() {
     	draw1();
-    	draw2();
-    	draw3();
+    	//draw2();
+    	//draw3();
     	draw4();
     }
     function draw1() {
-  	  var canvas = document.getElementById('c1');
-  	  if ( ! canvas || ! canvas.getContext ) { return false; }
-  	  var ctx = canvas.getContext('2d');
-  	  ctx.beginPath();
-  	  ctx.fillStyle = 'rgb(256, 256, 0)';// 黄
-  	  ctx.arc(70, 70, 60,-30 * Math.PI / 180, 30 * Math.PI / 180, true);
-  	  ctx.lineTo(70, 70);
-  	  ctx.fill();
+  	  var canvas1 = document.getElementById('c1');
+  	  if ( ! canvas1 || ! canvas1.getContext ) { return false; }
+  	  var ctx1 = canvas1.getContext('2d');
+  	  var x_1 = 70;
+  	  var y_1 = 70;
+  	  var id = setInterval(function(){
+  	  ctx1.clearRect(0, 0, canvas1.width, canvas1.height);
+  	  ctx1.beginPath();
+  	  ctx1.fillStyle = 'rgb(256, 256, 0)';// 黄
+  	  var tra = Math.random() * 10;
+  	  if(tra > 5){
+  		ctx1.arc(x_1, y_1, 60,-30 * Math.PI / 180, 30 * Math.PI / 180, true);
+    	  ctx1.lineTo(x_1, y_1);
+    	  ctx1.fill();
+  		x_1++;
+  	  } else {
+  		ctx1.arc(x_1, y_1, 60,-150 * Math.PI / 180, 150 * Math.PI / 180, false);
+    	  ctx1.lineTo(x_1, y_1);
+    	  ctx1.fill();
+  		  x_1--;
+  	  }
+
+  	  }
+  	  ,100);
   	}
     function draw2() {
-      var canvas = document.getElementById('c2');
-      if ( ! canvas || ! canvas.getContext ) { return false; }
-      var ctx = canvas.getContext('2d');
-      ctx.beginPath();
-      ctx.fillStyle = 'rgb(256, 256, 0)';// 黄
-      ctx.arc(70, 70, 60,-30 * Math.PI / 180, 30 * Math.PI / 180, true);
-      ctx.lineTo(70, 70);
-      ctx.fill();
+      var canvas2 = document.getElementById('c2');
+      if ( ! canvas2 || ! canvas2.getContext ) { return false; }
+      var ctx2 = canvas2.getContext('2d');
+      var x_2 = 70;
+      var y_2 = 70;
+      var id = setInterval(function(){
+    	  ctx2.clearRect(0, 0, canvas2.width, canvas2.height);
+    	  ctx2.beginPath();
+          ctx2.fillStyle = 'rgb(256, 256, 0)';// 黄
+          ctx2.arc(70, 70, 60,-30 * Math.PI / 180, 30 * Math.PI / 180, true);
+          ctx2.lineTo(70, 70);
+          ctx2.fill();
+      }, 100);
+
     }
     function draw3() {
     	var canvas = document.getElementById('c3');
@@ -54,8 +76,10 @@
   	  ctx.strokeRect(0, 0, 900, 140);
     }
 
-    function trancelate() {
-    	ctx.clearRect(0,0,canvas.width,canvas.height);
+    function trancelate_c1() {
+    	ctx1.clearRect(0,0,canvas.width,canvas.height);
+    	var trancelate_c1 =+ 1;
+    	ctx1.arc
     }
     </script>
 <style>
@@ -86,7 +110,7 @@
 </style>
 </head>
 <body>
-<canvas id="c1" width="140" height="140"></canvas>
+<canvas id="c1" width="900" height="140"></canvas>
 <canvas id="c2" width="140" height="140"></canvas>
 <canvas id="c3" width="140" height="140"></canvas>
 <canvas id="c4" width="900" height="140"></canvas>
