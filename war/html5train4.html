@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<style type="text/css">
+canvas {
+    border: solid 3px #000;
+}
+</style>
+<script type="text/javascript">
+window.onload = function() {
+
+    // FPS計算 ---------------------------------------------
+
+    var FPS = function(target) {
+        this.target     = target;        // 目標FPS
+        this.interval   = 1000 / target; // setTimeoutに与えるインターバル
+        this.checkpoint = new Date();
+        this.fps        = 0;
+    };
+    FPS.prototype = {
+        // checkからcheckまでの時間を元にFPSを計算
+        check: function() {
+            var now = new Date();
+            this.fps = 1000 / (now - this.checkpoint);
+            this.checkpoint = new Date();
+        },
+        // 現在のFPSを取得
+        getFPS: function() {
+            return this.fps.toFixed(2);
+        },
+        // 次回処理までのインターバルを取得
+        getInterval: function() {
+            var elapsed = new Date() - this.checkpoint;
+            return this.interval - elapsed > 10 ? this.interval - elapsed : 10;
+        }
+    };
+
+
+    // メイン処理 ------------------------------------------
+
+    var canvas = document.getElementById('canvas');
+    var cc = canvas.getContext('2d');
+
+    var theta = 0.0;
+    var rectWidth = 100;
+    var rectHeight = 50;
+
+    // 30FPSでアニメーション
+    var fps = new FPS(30);
+
+    var loop = function() {
+        fps.check();
+
+        cc.save();
+
+        // キャンバスをクリア
+        cc.beginPath();
+        cc.clearRect(0, 0, canvas.width, canvas.height);
+
+        cc.beginPath();
+
+        // 回転の中心は原点なので、
+        // 一度図形の中心を原点に移してから回転させて
+        // 元の場所に戻す
+        cc.translate(canvas.width / 2, canvas.height / 2);
+        cc.rotate(theta);
+        cc.translate(-rectWidth / 2, -rectHeight / 2);
+        cc.fillRect(0, 0, rectWidth, rectHeight);
+
+        cc.restore();
+
+        cc.fillText('FPS : ' + fps.getFPS(), 10, 20);
+
+        theta += 5 * Math.PI / 180;
+        if(Math.PI * 2 < theta) {
+            theta = 0;
+        }
+
+        setTimeout(loop, fps.getInterval());
+    };
+
+    loop();
+};
+</script>
+<title></title>
+</head>
+
+<body>
+
+<canvas id="canvas" width="300" height="200"></canvas>
+<p>
+ぐるぐる回してみる。
+</p>
+
+</body>
+</html>

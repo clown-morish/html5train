@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Language" content="ja" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <meta http-equiv="Content-Script-Type" content="text/javascript" />
+    <title>Canvas</title>
+    <!--[if IE]><script type="text/javascript" src="js/excanvas.js"></script><![endif]-->
+    <script type="text/javascript">
+    onload = function() {
+    	draw1();
+    	draw2();
+    	draw3();
+    	draw4();
+    }
+    function draw1() {
+  	  var canvas = document.getElementById('c1');
+  	  if ( ! canvas || ! canvas.getContext ) { return false; }
+  	  var ctx = canvas.getContext('2d');
+  	  ctx.beginPath();
+  	  ctx.fillStyle = 'rgb(256, 256, 0)';// 黄
+  	  ctx.arc(70, 70, 60,-30 * Math.PI / 180, 30 * Math.PI / 180, true);
+  	  ctx.lineTo(70, 70);
+  	  ctx.fill();
+  	}
+    function draw2() {
+      var canvas = document.getElementById('c2');
+      if ( ! canvas || ! canvas.getContext ) { return false; }
+      var ctx = canvas.getContext('2d');
+      ctx.beginPath();
+      ctx.fillStyle = 'rgb(256, 256, 0)';// 黄
+      ctx.arc(70, 70, 60,-30 * Math.PI / 180, 30 * Math.PI / 180, true);
+      ctx.lineTo(70, 70);
+      ctx.fill();
+    }
+    function draw3() {
+    	var canvas = document.getElementById('c3');
+    	if ( ! canvas || ! canvas.getContext ) { return false; }
+       var ctx = canvas.getContext('2d');
+       ctx.beginPath();
+       ctx.fillStyle = 'rgb(256, 256, 0)';// 黄
+       ctx.arc(70, 70, 60,-30 * Math.PI / 180, 30 * Math.PI / 180, true);
+       ctx.lineTo(70, 70);
+       ctx.fill();
+      }
+    function draw4() {
+    	var canvas = document.getElementById('c4');
+  	  if ( ! canvas || ! canvas.getContext ) { return false; }
+  	  var ctx = canvas.getContext('2d');
+  	  ctx.beginPath();
+  	  ctx.strokeRect(0, 0, 900, 140);
+    }
+
+    function trancelate() {
+    	ctx.clearRect(0,0,canvas.width,canvas.height);
+    }
+    </script>
+<style>
+#c1 {
+	position:absolute;
+	 top: 0px;
+	 left: 0px;
+	 z-index: 4;
+	}
+#c2 {
+	position:absolute;
+	 top: 0px;
+	 left: 0px;
+	 z-index: 3;
+	}
+#c3 {
+	position:absolute;
+	 top: 0px;
+	 left: 0px;
+	 z-index: 2;
+	}
+#c4 {
+	position:absolute;
+	 top: 0px;
+	 left: 0px;
+	 z-index: 1;
+	}
+</style>
+</head>
+<body>
+<canvas id="c1" width="140" height="140"></canvas>
+<canvas id="c2" width="140" height="140"></canvas>
+<canvas id="c3" width="140" height="140"></canvas>
+<canvas id="c4" width="900" height="140"></canvas>
+</body>
+</html>

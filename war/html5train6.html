@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-31j">
+<title>Insert title here</title>
+
+</head>
+<body>
+<button id="twitter-search-b1">TwitterでJavaScriptを検索</button>
+<div id="twitter-search-r1" class="twsrrlt"></div>
+<script>
+function TwitterCallback1(data){
+	  var div = document.getElementById('twitter-search-r1');
+	  /* 前回の結果がある場合に削除 */
+	  while (div.firstChild) {
+	    div.removeChild(div.firstChild);
+	  }
+	  var results = data.results;
+	  var ul = document.createElement('ul');
+	  ul.className = 'twl';
+	  for (var i = 0, len = results.length;i < len; i++){
+	    var usr = results[i];
+	        var user = usr.from_user;
+	    /* 要素を作る */
+	    var li = document.createElement('li');
+	    var link = document.createElement('a');
+	    var icon = document.createElement('img');
+	    var name = document.createElement('span');
+	    var entry = document.createElement('p');
+	    var time = document.createElement('div');
+	    var timelink = document.createElement('a');
+	    /* CSS用にclassを設定 */
+	    li.className = ((i+1)%2) ? 'odd' : 'even';
+	    link.className = 'usr';
+	    entry.className = 'entry';
+	    time.className = 'time';
+	    /* リンクや画像などの属性を設定 */
+	    link.href = 'http://twitter.com/' + user;
+	    var src = usr.profile_image_url;
+	    if (src.indexOf('http') === 0) {
+	      icon.src = src;
+	    }
+	    icon.width = 48;
+	    icon.height = 48;
+	    timelink.href = 'http://twitter.com/' +
+	                user +'/status/' + usr.id;
+	    var d = new Date(usr.created_at);
+	    var date = d.getFullYear() + '/' + (d.getMonth()+1) +
+	           '/' + d.getDate() + ' ' + d.getHours() + ':' +
+	           ('0'+d.getMinutes()).slice(-2);
+	    /* テキストノードの挿入 */
+	    entry.appendChild(document.createTextNode(usr.text));
+	    timelink.appendChild(document.createTextNode(date));
+	    name.appendChild(document.createTextNode(user));
+	    /* 要素の組み立て */
+	    link.appendChild(icon);
+	    link.appendChild(document.createElement('br'));
+	    link.appendChild(name);
+	    li.appendChild(link);
+	    li.appendChild(entry);
+	    time.appendChild(timelink);
+	    li.appendChild(time);
+	    ul.appendChild(li);
+	  }
+	  /* 画面に反映 */
+	  div.appendChild(ul);
+	}
+	var b1 =document.getElementById('twitter-search-b1');
+	b1.onclick=function(){
+	  var script = document.createElement('script');
+	  script.src = 'http://search.twitter.com/search.json'+
+	    '?callback=TwitterCallback1&lang=ja&q=JavaScript';
+	  document.body.appendChild(script);
+	}
+</script>
+<style>
+#twitter-search-b1, #twitter-search-b2{
+  margin-top: -0.75em;
+  padding: 2px 8px;
+}
+.twsrrlt ul.twl{
+  list-style-type:none;
+}
+.twsrrlt .twl li{
+  margin:6px 0;
+  padding:6px;
+  position:relative;
+  background-image:none;
+  -moz-border-radius:6px;
+  border-radius:6px;
+  color:#222;
+}
+.twsrrlt .twl li.odd{
+  background-color: #eee;
+}
+.twsrrlt .twl li.even{
+  background-color: #ddd;
+}
+.twsrrlt .twl li a.usr{
+  min-width:50px;
+  position:absolute;
+  top:5px;
+}
+* html .twsrrlt .twl li a.usr{
+  width:50px;
+}
+.twsrrlt .twl li a.usr{
+  height:50px;
+  overflow:hidden;
+}
+.twsrrlt .twl li a.usr:hover{
+  height:auto;
+  overflow:visible;
+}
+.twsrrlt .twl li a.usr:hover span{
+  padding:2px 6px;
+  background:#fff;
+  -moz-border-radius:4px;
+  border-radius:4px;
+  word-break: keep-all;
+  word-wrap: normal;
+}
+.twsrrlt .twl li p{
+  margin:0;
+  display:inline-block;
+}
+* html .twsrrlt .twl li p{
+  display:block;
+}
+.twsrrlt .twl li p.entry{
+  min-height:60px;
+  margin-left:52px;
+}
+* html .twsrrlt .twl li p.entry{
+  height:60px;
+}
+.twsrrlt .twl li div.time{
+  display:block;
+  text-align:right;
+}
+.twsrrlt{
+  margin-bottom: 1em;
+}
+</style>
+</body>
+</html>

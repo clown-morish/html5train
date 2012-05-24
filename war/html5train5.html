@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<title>form</title>
+<body>
+<form id="userform" name="userform" action="" method="post">
+	<fieldset>
+		<legend>ユーザー登録</legend>
+		<p>
+			<label for="username">ユーザー名</label>
+			<input type="text" name="name" value="" id="username" class="text" required="required">
+		</p>
+		<p>
+			<label for="useremail">メールアドレス</label>
+			<input type="text" name="email" value="" id="useremail" class="text" required="required">
+		</p>
+		<p>
+			<label for="userpass">パスワード</label>
+			<input type="password" name="pass" value="" id="userpass" class="text" required="required">
+		</p>
+		<p>
+			<label for="userpass_sub">パスワード(確認)</label>
+			<input type="password" name="pass2" value="" class="text" id="userpass_sub">
+		</p>
+		<p class="submit">
+			<input type="submit" id="usersubmit" value="送信" class="button" id="usersubmit">
+		</p>
+		<p id="errors"></p>
+	</fieldset>
+</form>
+<style>
+body{
+font-size:85%;
+}
+p{
+margin:0.2em;
+padding:0;
+}
+input.text,
+input.button{
+border-top:1px solid #aaa;
+border-left:1px solid #aaa;
+border-right:1px solid #666;
+border-bottom:1px solid #666;
+}
+input.text{
+width:18em;
+padding:2px;
+}
+legend{
+margin:0.5em 0;
+background:#666;
+color:#fff;
+padding:2px 4px;
+}
+label{
+display:inline-block;
+/float:left;
+/zoom:1;
+width:8em;
+height:1.5em;
+color:#003366;
+font-size:90%;
+cursor:pointer;
+}
+p.submit{
+margin:1em 0.2em 0.2em;
+text-align:right;
+}
+#usersubmit{
+width:4em;
+}
+#userform{
+margin:1em;
+}
+#userform fieldset,
+#userform div.box{
+border:1px solid #aaa;
+display:inline-block;
+/display:inline;
+background:#ffffff;
+padding:1em;
+}
+#errors{
+display:none;
+max-width:300px;
+/width:320px;
+font-size:90%;
+}
+</style>
+<script>
+(function(){
+	var addEvent;
+	if(document.addEventListener) {
+		addEvent = function(node,type,handler){
+			node.addEventListener(type,handler,false);
+		};
+	} else if (document.attachEvent) {
+		addEvent = function(node,type,handler){
+			node.attachEvent('on' + type, function(evt){
+				handler.call(node, evt);
+			});
+		};
+	} else {
+		addEvent = function(node,type,handler){
+			var _handler = node['on' + type];
+			node['on' + type] = function(evt){
+				if (_handler) {
+					_handler.call(node, evt||window.evt);
+				}
+				handler.call(node, evt);
+			};
+		};
+	}
+	var message = {name:'ユーザー名',email:'メールアドレス',pass:'パスワード'};
+	addEvent(window,'load',function(){
+		var form = document.getElementById('userform');
+		var errorNode = document.getElementById('errors');
+		var inputNodes = form.getElementsByTagName('input');
+		var passwords = [];
+		var timer;
+		for (var i = 0, inputsLen = inputNodes.length;i < inputsLen; i++){
+			var input = inputNodes[i];
+			if (input.type === 'text' || input.type === 'password') {
+				addEvent(input,'focus',function(){
+					this.style.background = 'white';
+				});
+				if (input.type === 'password') {
+					passwords.push(input);
+				}
+			}
+		}
+		addEvent(form,'submit',function(evt){
+			var noBlank = true;
+			var errors = [];
+			for (var i = 0;i < inputsLen; i++){
+				var input = inputNodes[i];
+				if (input.getAttribute('required') && !input.value) {
+					input.style.background = '#ffff66';
+					if(noBlank) {
+						input.focus();
+						noBlank = false;
+					}
+					errors.push(message[input.name]);
+				}
+			}
+			var matchedPass = passwords[0].value === passwords[1].value;
+			if (noBlank && !matchedPass) {
+				passwords[0].focus();
+				passwords[1].style.background = '#ffff66';
+				errorNode.innerHTML = 'パスワードが一致していません';
+			}
+			if (!noBlank) {
+				errorNode.innerHTML = errors.join('、')+'は必須です';
+			}
+			if (!noBlank || !matchedPass) {
+				if (evt.preventDefault) {
+					evt.preventDefault();
+				} else {
+					evt.returnValue = false;
+				}
+				errorNode.style.display = 'block';
+				if (timer) {
+					clearTimeout(timer);
+					timer = null;
+				}
+				timer = setTimeout(function(){
+					errorNode.style.display = 'none';
+					timer = null;
+				}, 3000);
+			}
+		});
+	})
+})();
+</script>
+</html>
