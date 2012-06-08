@@ -2,6 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8" />
+    <meta http-equiv="Content-Script-Type" content="text/javascript" />
     <title>LocalStorage Sample</title>
 </head>
 <body onload="viewStorage();">
@@ -72,7 +73,9 @@ if (typeof localStorage === 'undefined') {
 </script>
 	title：<input id="textkey" type="text" /><br />
 	memo：<br />
-	<textarea id="textdata"  rows="4" cols="40"></textarea><br />
+	<textarea id="textdata" rows="4" cols="40">
+		
+	</textarea><br />
 	<button id="button" onclick="setlocalStorage()">保存</button><br />
 	<button id="button" onclick="removeStorage()">削除</button><br />
 	<button id="button" onclick="removeallStorage()">全て削除</button><br />
