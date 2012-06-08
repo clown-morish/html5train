@@ -49,12 +49,12 @@
       var x_2 = 840;
       var y_2 = 70;
       var id = setInterval(function(){
-    	  ctx2.clearRect(0, 0, canvas2.width, canvas2.height);
-    	  ctx2.beginPath();
-          ctx2.fillStyle = 'rgb(256, 256, 0)';// 黄
-          ctx2.arc(x_2, y_2, 60,-150 * Math.PI / 180, 150 * Math.PI / 180, false);
-          ctx2.lineTo(x_2, y_2);
-          ctx2.fill();
+	      ctx2.clearRect(0, 0, canvas2.width, canvas2.height);
+	      ctx2.beginPath();
+	      ctx2.fillStyle = 'rgb(256, 256, 0)';// 黄
+	      ctx2.arc(x_2, y_2, 60,-150 * Math.PI / 180, 150 * Math.PI / 180, false);
+	      ctx2.lineTo(x_2, y_2);
+	      ctx2.fill();
           x_2--;
           if(x_2 < 70) {
         	  x_2 = 840;
@@ -63,14 +63,15 @@
 
     }
     function draw3() {
-    	var canvas = document.getElementById('c3');
-    	if ( ! canvas || ! canvas.getContext ) { return false; }
-       var ctx = canvas.getContext('2d');
-       ctx.beginPath();
-       ctx.fillStyle = 'rgb(256, 256, 0)';// 黄
-       ctx.arc(70, 70, 60,-30 * Math.PI / 180, 30 * Math.PI / 180, true);
-       ctx.lineTo(70, 70);
-       ctx.fill();
+    	var canvas3 = document.getElementById('c3');
+    	if ( ! canvas3 || ! canvas3.getContext ) { return false; }
+	       var ctx = canvas3.getContext('2d');
+
+	       ctx.beginPath();
+	       ctx.fillStyle = 'rgb(256, 256, 0)';// 黄
+	       ctx.arc(70, 70, 60,-30 * Math.PI / 180, 30 * Math.PI / 180, true);
+	       ctx.lineTo(70, 70);
+	       ctx.fill();
       }
     function draw4() {
     	var canvas = document.getElementById('c4');

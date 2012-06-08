@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>paint</title>
+<body style="margin:10px; background-color:white;">
+<canvas id="canvas1" width="600" height="300""></canvas><br>
+<button id="but1" style="width:80px; background-color:yellow;">YELLOW</button>
+<button id="but2" style="width:80px; background-color:red;">RED</button>
+<button id="but3" style="width:80px; background-color:blue;">BLUE</button>
+<button id="but4" style="width:80px; background-color:green;">GREEN</button>
+<button id="but5" style="width:80px; background-color:white;">WHITE</button>
+<button id="but6" style="width:80px; color:white; background-color:black;">BLACK</button><br>
+<button id="but7" style="width:80px; background-color:white;">4px</button>
+<button id="but8" style="width:80px; background-color:white;">8px</button>
+<button id="but9" style="width:80px; background-color:white;">16px</button>
+<button id="but10" style="width:80px; background-color:white;">32px</button><br>
+<button id="but11" style="width:80px; background-color:white;">CLEAR</button>
+<script type"text/javascript">
+
+var canvas1 = document.getElementById("canvas1");
+var ctx1 = canvas1.getContext("2d");
+
+//描画フラグ
+var onoff = false;
+
+var oldx = 0;
+var oldy = 0;
+
+//マウスが動いている時に描画
+canvas1.addEventListener("mousemove", paint, true);
+
+//マウスダウンした時に座標を取得
+canvas1.addEventListener("mousedown", function(event){
+	onoff = true;
+	oldx = event.pageX-10;
+	oldy = event.pageY-10;
+}, false);
+
+canvas1.addEventListener("mouseup", function(){
+	onoff = false;
+}, false);
+
+//描画エリア
+ctx1.fillStyle = "black";
+ctx1.fillRect(0, 0, 600, 300);
+
+//ペン初期値
+var linecolor = "white";
+var linewidth = 4;
+
+//描画関数
+function paint(event){
+	if(onoff == true){
+		var newx = event.pageX-10;
+		var newy = event.pageY-10;
+
+		ctx1.beginPath();
+		ctx1.moveTo(oldx, oldy);
+		ctx1.lineTo(newx, newy);
+		ctx1.strokeStyle = linecolor;
+		ctx1.lineWidth = linewidth;
+		ctx1.lineCap = "round";
+		ctx1.stroke();
+
+		oldx = newx;
+		oldy = newy;
+	};
+};
+
+var but1 = document.getElementById("but1");
+but1.addEventListener('click', function(){
+	linecolor = "yellow";
+}, false);
+
+var but2 = document.getElementById("but2");
+but2.addEventListener('click', function(){
+	linecolor = "red";
+}, false);
+
+var but3 = document.getElementById("but3");
+but3.addEventListener('click', function(){
+	linecolor = "blue";
+}, false);
+
+var but4 = document.getElementById("but4");
+but4.addEventListener('click', function(){
+	linecolor = "green";
+}, false);
+
+var but5 = document.getElementById("but5");
+but5.addEventListener('click', function(){
+	linecolor = "white";
+}, false);
+
+var but6 = document.getElementById("but6");
+but6.addEventListener('click', function(){
+	linecolor = "black";
+}, false);
+
+var but7 = document.getElementById("but7");
+but7.addEventListener('click', function(){
+	linewidth = 4;
+}, false);
+
+var but8 = document.getElementById("but8");
+but8.addEventListener('click', function(){
+	linewidth = 8;
+}, false);
+
+var but9 = document.getElementById("but9");
+but9.addEventListener('click', function(){
+	linewidth = 16;
+}, false);
+
+var but10 = document.getElementById("but10");
+but10.addEventListener('click', function(){
+	linewidth = 32;
+}, false);
+
+var but11 = document.getElementById("but11");
+but11.addEventListener('click', function(){
+	ctx1.fillStyle = "black";
+	ctx1.fillRect(0, 0, 600, 300);
+}, false);
+
+</script>
+</head>
+</html>
